@@ -1,0 +1,63 @@
+@import "variables";
+
+.works {
+  min-height: 70vh;
+}
+.wrapper {
+  margin: 10vh auto 0 auto;
+  max-width: 120rem;
+}
+.title {
+  color: $main-text-color;
+  font-size: 7rem;
+  font-weight: 400;
+  width: min-content;
+  margin: 0 4rem;
+  font-family: Roboto Mono;
+  letter-spacing: 0.5rem;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4rem 0;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4rem;
+}
+.tag {
+  text-align: center;
+  width: min-content;
+  font-size: 2rem;
+  background-color: $main-background-color;
+  color: $sub-text-color;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: 0.3s ease;
+}
+.selected {
+  background-color: $accent-color;
+  color: $main-text-color;
+  transition: 0.3s ease;
+}
+.more {
+  margin: 4rem auto;
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 400;
+  color: $main-text-color;
+  background-color: $sub-background-color;
+  border-radius: 1rem;
+  width: 60%;
+  height: 6rem;
+  line-height: 6rem;
+  transition: 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    transform: translateY(0.4rem);
+    transition: 0.3s ease;
+  }
+}

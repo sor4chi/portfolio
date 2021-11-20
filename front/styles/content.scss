@@ -1,0 +1,19 @@
+@import 'variables';
+
+.content {
+  margin: 5rem 0;
+  p {
+    font-size: 2rem;
+    color: $main-text-color;
+  }
+  a {
+    color: $accent-color;
+    padding: 0 0.5rem;
+  }
+  img {
+    width: 80%;
+    margin: 2rem 10%;
+    border-radius: 1rem;
+    height: auto;
+  }
+}

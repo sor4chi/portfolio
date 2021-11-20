@@ -1,0 +1,54 @@
+@import "variables";
+
+.header {
+  position: absolute;
+  width: 100vw;
+  height: 7.5rem;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15%;
+  z-index: 1;
+  &_icon {
+    fill: $main-text-color;
+    width: 6rem;
+    height: 6rem;
+    margin-top: 1rem;
+    border-bottom: 0.5rem $main-background-color solid;
+  }
+}
+
+.nav {
+  display: flex;
+  &_item {
+    list-style: none;
+    font-size: 2.3rem;
+    height: 7.5rem;
+    line-height: 7.5rem;
+    font-weight: 300;
+    color: $main-text-color;
+    padding: 0 2rem;
+    position: relative;
+    transition: 0.3s ease;
+    &_contact {
+      list-style: none;
+      font-size: 2.3rem;
+      height: 4.5rem;
+      line-height: 4.5rem;
+      font-weight: 300;
+      color: $main-text-color;
+      padding: 0 2rem;
+      margin: 1.5rem;
+      position: relative;
+      transition: 0.3s ease;
+      background-color: $accent-color;
+      border-radius: 5rem;
+    }
+    @include mq(xl) {
+      &:hover {
+        color: $accent-color;
+        transition: 0.3s ease;
+      }
+    }
+  }
+}

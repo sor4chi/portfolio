@@ -1,0 +1,11 @@
+@import "variables";
+
+.footer {
+  height: 20vh;
+  text-align: center;
+  line-height: 20vh;
+  font-size: 2rem;
+  color: $main-text-color;
+  background-color: $sub-background-color; 
+  border-top: 0.1rem solid $main-background-color;
+}

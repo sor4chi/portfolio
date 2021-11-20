@@ -1,0 +1,21 @@
+// $accent-color: #9dc4d0;
+$accent-color: #a873bd;
+$main-background-color: #3b3e51;
+$sub-background-color: #292c3e;
+$main-text-color: #ffffff;
+$sub-text-color: #c2c2c2;
+$qiita-color: rgb(85, 197, 0);
+$zenn-color: rgb(62, 168, 255);
+
+$breakpoints: (
+  "sm": "screen and (max-width: 400px)",
+  "md": "screen and (max-width: 768px)",
+  "lg": "screen and (max-width: 1000px)",
+  "xl": "screen and (max-width: 1200px)",
+) !default;
+
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}

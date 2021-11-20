@@ -1,0 +1,43 @@
+@import 'variables';
+
+.work {
+  width: calc((100% - 0.5rem * 6)/ 3);
+  height: 25rem;
+  margin: 0.5rem;
+  border: 0.2rem solid $sub-text-color;
+  position: relative;
+  z-index: 100;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: 1s ease;
+  &:hover {
+    transform: scale(1.02);
+    transition: 0.3s ease;
+  }
+  &_inner {
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1;
+  }
+}
+.title {
+  color: $main-text-color;
+  font-size: 3rem;
+  margin: 2rem 0;
+  padding: 0 2rem;
+}
+.tag {
+  color: $sub-text-color;
+  font-size: 2rem;
+  margin: 2rem 1rem;
+  padding: 0 2rem;
+}
+.date {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+}
