@@ -1,10 +1,12 @@
 @import "variables";
 
 .works {
-  min-height: 70vh;
+  min-height: $minContentHeight;
+  background-color: $main-background-color;
 }
 .wrapper {
-  margin: 10vh auto 0 auto;
+  margin: 0 auto;
+
   max-width: 120rem;
 }
 .title {
@@ -13,7 +15,7 @@
   font-weight: 400;
   width: min-content;
   margin: 0 4rem;
-  font-family: Roboto Mono;
+
   letter-spacing: 0.5rem;
 }
 .list {
@@ -23,11 +25,11 @@
 }
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-top: 4rem;
 }
-.tag {
+.category {
   text-align: center;
   width: min-content;
   font-size: 2rem;
@@ -56,8 +58,17 @@
   transition: 0.3s ease;
   align-items: center;
   justify-content: center;
-  &:hover {
-    transform: translateY(0.4rem);
-    transition: 0.3s ease;
+  @include mq(u_xl) {
+    &:hover {
+      transform: translateY(0.4rem);
+      transition: 0.3s ease;
+    }
   }
+}
+.not_works {
+  width: 100%;
+  text-align: center;
+  font-size: 5rem;
+  color: $main-text-color;
+  font-weight: 300;
 }

@@ -1,18 +1,46 @@
-@import 'variables';
+@import "variables";
 
 .work {
-  width: calc((100% - 0.5rem * 6)/ 3);
+  width: calc((100% - 0.5rem * 6) / 3);
+  @include mq(d_xl) {
+    width: calc((100% - 0.5rem * 4) / 2);
+  }
+  @include mq(d_md) {
+    width: calc((100% - 0.5rem * 2) / 1);
+    height: 24rem;
+    margin: 1rem;
+  }
   height: 25rem;
   margin: 0.5rem;
   border: 0.2rem solid $sub-text-color;
   position: relative;
-  z-index: 100;
+  z-index: 1;
   border-radius: 1rem;
   overflow: hidden;
   transition: 1s ease;
-  &:hover {
-    transform: scale(1.02);
-    transition: 0.3s ease;
+  opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  @for $i from 1 to 7 {
+    &:nth-child(#{$i}) {
+      $delay: $i * $fadein-delay;
+      animation-delay: $delay;
+    }
+    &:nth-child(#{$i + 6}) {
+      $delay: $i * $fadein-delay;
+      animation-delay: $delay;
+    }
+  }
+  @include mq(u_xl) {
+    &:hover {
+      transform: scale(1.02);
+      transition: 0.3s ease;
+    }
   }
   &_inner {
     background: rgba(0, 0, 0, 0.4);

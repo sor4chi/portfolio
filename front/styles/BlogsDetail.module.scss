@@ -1,0 +1,52 @@
+@import "variables";
+
+.wrapper {
+  max-width: $blogMaxWidth;
+  margin: 0 auto;
+  min-height: $minContentHeight;
+
+  background-color: $main-background-color;
+}
+.image {
+  width: 100%;
+  height: 30vh;
+  @include mq(d_md) {
+    height: 20vh;
+  }
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+.meta {
+  width: 100%;
+  margin: 2rem 0;
+  text-align: center;
+  &_sub {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+    position: relative;
+  }
+}
+.title {
+  font-size: 4rem;
+  font-weight: bold;
+  color: $main-text-color;
+  margin: 0;
+}
+.tags {
+  display: flex;
+  &_item {
+    color: $main-text-color;
+    background-color: $main-background-color;
+    padding: 0.5rem 3rem;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    border: 0.2rem $accent-color solid;
+    margin-right: 1rem;
+  }
+}

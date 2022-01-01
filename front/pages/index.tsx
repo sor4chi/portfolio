@@ -8,47 +8,35 @@ import ArrowSVG from "components/Arrow";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "styles/Home.module.scss";
-import { Profile, Tags, News, monthNames } from "interface";
+import { Profile, Categories, Blogs } from "types";
 import { InferGetStaticPropsType } from "next";
+import BlogsItem from "components/BlogsItem";
+import { getProfiles } from "lib/api/profiles";
+import { getWorksCategories } from "lib/api/works";
+import { getBlogs } from "lib/api/blogs";
+import markdownToHtml from "lib/remark/transpiler";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res_profs = await fetch(
-    "https://monica-portfolio.microcms.io/api/v1/profile",
-    {
-      headers: { "X-MICROCMS-API-KEY": "2e6bdd36fdb841409adac94e6a71f24b8b1f" },
-    }
-  );
-  const res_tags = await fetch(
-    "https://monica-portfolio.microcms.io/api/v1/tags",
-    {
-      headers: { "X-MICROCMS-API-KEY": "2e6bdd36fdb841409adac94e6a71f24b8b1f" },
-    }
-  );
-  const res_news = await fetch(
-    "https://monica-portfolio.microcms.io/api/v1/news",
-    {
-      headers: { "X-MICROCMS-API-KEY": "2e6bdd36fdb841409adac94e6a71f24b8b1f" },
-    }
-  );
-  const profs_data = await res_profs.json();
-  const tags_data = await res_tags.json();
-  const news_data = await res_news.json();
-  const profs: Profile[] = profs_data.contents;
-  const tags: Tags[] = tags_data.contents;
-  const news: News[] = news_data.contents;
+  const profs_raw: Profile[] = await getProfiles();
+  const categories: Categories[] = await getWorksCategories();
+  const blogs: Blogs[] = await getBlogs();
+  var profs: string[] = [];
+  for (var i = 0; i < profs_raw.length; i++) {
+    profs.push(await markdownToHtml(profs_raw[i].content || ""));
+  }
   return {
     props: {
       profs,
-      tags,
-      news,
+      categories,
+      blogs,
     },
   };
 };
 
 const Home = ({
   profs,
-  tags,
-  news,
+  categories,
+  blogs,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   function scrollTo(section_id: string) {
     var element_y = document
@@ -59,13 +47,6 @@ const Home = ({
       top: element_y + offset_y,
       behavior: "smooth",
     });
-  }
-  function getdate(datetime_str: string) {
-    var datetime = new Date(datetime_str);
-    var y = datetime.getFullYear();
-    var m = monthNames[datetime.getMonth()];
-    var d = ("00" + datetime.getDate()).slice(-2);
-    return m + " " + d + " " + y;
   }
   const [pagenate, setPagenate] = useState(0);
   var pagenate_item = [];
@@ -83,6 +64,22 @@ const Home = ({
       </div>
     );
   }
+  var blog_item_num = 1;
+  var innerWidth = 1000;
+  if (typeof window !== "undefined") {
+    window.addEventListener("resize", () => {
+      innerWidth = window.innerWidth;
+    });
+  }
+  const [windowWidth, setWindowWidth] = useState(innerWidth);
+  if (windowWidth <= 768) {
+    blog_item_num = 1;
+  } else if (windowWidth <= 1200) {
+    blog_item_num = 2;
+  } else {
+    blog_item_num = 3;
+  }
+  var blog_item: Blogs[] = [...blogs].reverse().slice(0, blog_item_num);
   return (
     <div>
       <HeadItem
@@ -94,6 +91,7 @@ const Home = ({
         image={"https://avatars.githubusercontent.com/u/80559385?v=4"}
       />
       <Header position={"index"} />
+
       <section id="top" className={`${styles.section} ${styles.top}`}>
         <div className={styles.top_left}>
           <h1 className={styles.top_text}>
@@ -144,12 +142,12 @@ const Home = ({
           <div className={styles.introduction_right}>
             <div className={styles.introduction_main}>
               <h3 className={styles.introduction_name}>Monica</h3>
-              {[...profs].reverse().map((prof: Profile, index: number) => (
+              {profs.map((prof: string, index: number) => (
                 <div
                   className={`${styles.introduction_text} ${
                     index == pagenate ? styles.introduction_text_show : ""
                   }`}
-                  dangerouslySetInnerHTML={{ __html: prof.content }}
+                  dangerouslySetInnerHTML={{ __html: prof }}
                   key={index}
                 ></div>
               ))}
@@ -163,8 +161,8 @@ const Home = ({
       <section id="works" className={`${styles.section} ${styles.works}`}>
         <h2 className={styles.works_title}>Works</h2>
         <div className={styles.works_container}>
-          {[...tags].reverse().map((tag: Tags, index: number) => (
-            <Link href={`/works/?tag=${tag.slug}`} key={index}>
+          {categories.map((cateogory: Categories, index: number) => (
+            <Link href={`/works/?cateogory=${cateogory.slug}`} key={index}>
               <a className={styles.works_item}>
                 <div className={styles.works_item_container}>
                   <div className={styles.works_icon_wrapper}>
@@ -180,14 +178,19 @@ const Home = ({
                     <h3
                       className={styles.works_name}
                       dangerouslySetInnerHTML={{
-                        __html: tag.name.replace(" ", "<br />"),
+                        __html: cateogory.name.replace(" ", "<br />"),
                       }}
                     ></h3>
-                    <p className={styles.works_num}>{index + 11} Products</p>
+                    <p className={styles.works_num}>
+                      <span className={styles.works_num_accent}>
+                        {cateogory.count}
+                      </span>
+                      Products
+                    </p>
                   </div>
                 </div>
                 <div className={styles.works_navigation}>
-                  Show {index + 11} Works
+                  Show More Details
                   <div className={styles.svg}>
                     <svg
                       className={styles.works_link}
@@ -213,7 +216,30 @@ const Home = ({
           </a>
         </Link>
       </section>
-      <section id="timeline" className={`${styles.section} ${styles.timeline}`}>
+      <section id="blog" className={`${styles.section} ${styles.blog}`}>
+        <h2 className={styles.blog_title}>Blog</h2>
+        <h3 className={styles.blog_title_sub}>
+          Newest Posts of{" "}
+          <span className={styles.blog_title_sub_strong}>{blogs.length}</span>{" "}
+          blogs
+        </h3>
+        <div className={styles.blog_wrapper}>
+          <div className={styles.blog_inner}>
+            {blog_item.map((blog: Blogs, index: number) => (
+              <BlogsItem blog={blog} key={index} />
+            ))}
+          </div>
+        </div>
+        <Link href="/blog/">
+          <a className={styles.blog_navigation}>
+            Show More Blogs
+            <div className={styles.arrow}>
+              <ArrowSVG />
+            </div>
+          </a>
+        </Link>
+      </section>
+      {/* <section id="timeline" className={`${styles.section} ${styles.timeline}`}>
         <div className={styles.timeline_left}>
           <div className={styles.timeline_left_content}>
             <h2 className={styles.timeline_title}>Timeline</h2>
@@ -247,7 +273,7 @@ const Home = ({
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
       <Footer />
     </div>
   );

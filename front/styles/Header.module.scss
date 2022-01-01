@@ -1,54 +1,186 @@
 @import "variables";
 
 .header {
-  position: absolute;
-  width: 100vw;
-  height: 7.5rem;
   top: 0;
+  z-index: 100;
+  background: $main-background-color-light;
+  user-select: none;
+  height: 7rem;
+  @include mq(d_md) {
+    position: fixed;
+  }
+  transition: 0.3s ease;
+}
+.logo_container {
+  margin: 0 2rem;
+}
+.open {
+  height: 100vh;
+  .header_inner {
+    height: auto;
+    flex-direction: column-reverse;
+  }
+  .logo_container {
+    transform: scale(1.4);
+    margin: 4rem 0;
+  }
+}
+
+.mobile {
+  display: none;
+  @include mq(d_md) {
+    display: flex;
+  }
+}
+.pc {
   display: flex;
+  @include mq(d_md) {
+    display: none;
+  }
+}
+
+.header_inner {
+  width: 100vw;
+  height: $headerHeight;
+  top: 0;
+  position: relative;
   justify-content: space-between;
+  align-items: center;
   padding: 0 15%;
   z-index: 1;
+  @include mq(d_md) {
+    padding: 0 1rem;
+    margin: auto;
+  }
+  .btn {
+    width: 7rem;
+    height: 7rem;
+    // background-color: $sub-background-color;
+    position: relative;
+    span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 5rem;
+      height: 0.5rem;
+      background-color: $main-text-color;
+      transition: 0.3s ease;
+    }
+    &_open {
+      span {
+        &:nth-child(1) {
+          top: 25%;
+        }
+        &:nth-child(2) {
+          top: 45%;
+          display: block;
+        }
+        &:nth-child(3) {
+          top: 65%;
+        }
+      }
+    }
+    &_close {
+      span {
+        &:nth-child(1) {
+          top: 50%;
+          transform: rotate(-45deg);
+        }
+        &:nth-child(2) {
+          display: none;
+        }
+        &:nth-child(3) {
+          top: 50%;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
   &_icon {
     fill: $main-text-color;
     width: 6rem;
     height: 6rem;
     margin-top: 1rem;
-    border-bottom: 0.5rem $main-background-color solid;
   }
 }
 
 .nav {
   display: flex;
+  align-items: center;
+  //   @include mq(d_md) {
+  //     flex-direction: column;
+  //   }
   &_item {
     list-style: none;
     font-size: 2.3rem;
-    height: 7.5rem;
-    line-height: 7.5rem;
     font-weight: 300;
     color: $main-text-color;
     padding: 0 2rem;
     position: relative;
     transition: 0.3s ease;
+    border-radius: 5rem;
+    padding: 1rem 2rem;
     &_contact {
-      list-style: none;
-      font-size: 2.3rem;
-      height: 4.5rem;
-      line-height: 4.5rem;
-      font-weight: 300;
-      color: $main-text-color;
-      padding: 0 2rem;
-      margin: 1.5rem;
-      position: relative;
-      transition: 0.3s ease;
+      margin: 0 1.5rem;
       background-color: $accent-color;
-      border-radius: 5rem;
+      color: $main-text-color !important;
     }
-    @include mq(xl) {
+    @include mq(u_xl) {
       &:hover {
         color: $accent-color;
         transition: 0.3s ease;
       }
     }
+    @include mq(d_md) {
+      font-weight: 700;
+      font-size: 4rem;
+      margin-top: 4rem;
+    }
   }
+}
+.close {
+  .hum_nav {
+    display: none;
+  }
+}
+.hum_nav {
+  display: block;
+  width: 100%;
+  &_item {
+    list-style: none;
+    text-align: center;
+    color: $main-text-color;
+    font-size: 5rem;
+    font-weight: 300;
+    padding: 2rem 0;
+    width: 100%;
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    @for $i from 1 to 7 {
+      &:nth-child(#{$i}) {
+        $delay: $i * $fadein-delay;
+        animation-delay: $delay;
+      }
+    }
+    &:last-child {
+      margin: auto;
+      a {
+        padding: 0;
+      }
+    }
+    a {
+      padding: 1rem 4rem;
+    }
+  }
+}
+.now {
+  background-color: $accent-color;
+  border-radius: 4rem;
 }

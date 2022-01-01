@@ -2,12 +2,16 @@
 
 .social {
   display: flex;
-  width: 30%;
-  justify-content: space-around;
+  width: min-content;
+  margin: 0;
+  @include mq(d_md) {
+    margin: 5rem auto;
+  }
   &_icon {
     fill: $main-text-color;
     transition: 0.3s ease;
-    @include mq(xl) {
+    margin: 0 1rem;
+    @include mq(u_xl) {
       &:hover {
         fill: $accent-color;
         transform: scale(1.3, 1.3);

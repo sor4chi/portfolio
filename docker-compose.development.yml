@@ -30,6 +30,7 @@ services:
       context: .
       dockerfile: ./docker/next/dockerfile
     working_dir: /app
+    env_file: ./.env
     depends_on:
       - api
     tty: true
@@ -44,14 +45,14 @@ services:
     image: nginx:1.13
     ports:
       - "80:80"
+    env_file: ./.env
     build:
       context: .
       dockerfile: ./docker/nginx/dockerfile
       target: dev_stage
     depends_on:
       - next
-    environment:
-      TZ: ${TZ}
+      - api
 
 volumes:
   pgdata:

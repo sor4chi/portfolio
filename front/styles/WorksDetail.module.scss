@@ -1,27 +1,43 @@
-@import 'variables';
+@import "variables";
 
 .wrapper {
-  max-width: 100rem;
-  margin: 10rem auto 0 auto;
-  min-height: calc(80vh - 10rem);
+  max-width: $workMaxWidth;
+  margin: 0 auto;
+  min-height: $minContentHeight;
+  background-color: $main-background-color;
 }
 .image {
   width: 100%;
-  height: 30rem;
+  height: 30vh;
+  @include mq(d_md) {
+    height: 20vh;
+  }
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
 }
 .meta {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
   width: 100%;
   margin: 2rem 0;
   align-items: center;
+  @include mq(d_md) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
 .title {
   font-size: 4rem;
   font-weight: bold;
   color: $main-text-color;
   margin: 0;
+  margin-right: auto;
+  text-align: left;
+  @include mq(d_md) {
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: center;
+  }
 }

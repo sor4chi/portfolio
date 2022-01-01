@@ -23,12 +23,13 @@ services:
     depends_on:
       - db
     stdin_open: true
-    command: bundle exec rails s -p 8000 -b '0.0.0.0'
+    command: bundle exec rails s -p 8000 -b '0.0.0.0' -e production
 
   next:
     build:
       context: .
       dockerfile: ./docker/next/dockerfile
+    env_file: ./.env
     working_dir: /app
     depends_on:
       - api
@@ -44,6 +45,7 @@ services:
     image: nginx:1.13
     ports:
       - "80:80"
+    env_file: ./.env
     build:
       context: .
       dockerfile: ./docker/nginx/dockerfile

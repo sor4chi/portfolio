@@ -1,17 +1,12 @@
-// $accent-color: #9dc4d0;
-$accent-color: #a873bd;
-$main-background-color: #3b3e51;
-$sub-background-color: #292c3e;
-$main-text-color: #ffffff;
-$sub-text-color: #c2c2c2;
-$qiita-color: rgb(85, 197, 0);
-$zenn-color: rgb(62, 168, 255);
-
 $breakpoints: (
-  "sm": "screen and (max-width: 400px)",
-  "md": "screen and (max-width: 768px)",
-  "lg": "screen and (max-width: 1000px)",
-  "xl": "screen and (max-width: 1200px)",
+  "u_sm": "screen and (min-width: 400px)",
+  "u_md": "screen and (min-width: 768px)",
+  "u_lg": "screen and (min-width: 1000px)",
+  "u_xl": "screen and (min-width: 1200px)",
+  "d_sm": "screen and (max-width: 400px)",
+  "d_md": "screen and (max-width: 768px)",
+  "d_lg": "screen and (max-width: 1000px)",
+  "d_xl": "screen and (max-width: 1200px)",
 ) !default;
 
 @mixin mq($breakpoint: md) {
@@ -19,3 +14,36 @@ $breakpoints: (
     @content;
   }
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+$accent-color: #9dc4d0;
+$main-background-color: #3b3e51;
+$main-background-color-light: #3b3e51ed;
+$sub-background-color: #292c3e;
+$main-text-color: #ffffff;
+$sub-text-color: #c2c2c2;
+$qiita-color: rgb(85, 197, 0);
+$zenn-color: rgb(62, 168, 255);
+$fadein-delay: 0.1s;
+$headerHeight: 7.5rem;
+$footerHeight: 20vh;
+$minContentHeight: calc(100vh - $headerHeight);
+$workMaxWidth: 100rem;
+$blogMaxWidth: 100rem;

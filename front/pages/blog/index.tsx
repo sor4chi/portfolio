@@ -8,28 +8,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "styles/Blogs.module.scss";
-import { Blogs, Tags } from "interface";
+import { Blogs, Tags } from "types";
 import { InferGetStaticPropsType } from "next";
+import { getBlogs, getBlogsTags } from "lib/api/blogs";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res_blogs = await fetch(
-    "https://monica-portfolio.microcms.io/api/v1/blog",
-    {
-      headers: { "X-MICROCMS-API-KEY": "2e6bdd36fdb841409adac94e6a71f24b8b1f" },
-    }
-  );
-  const res_tags = await fetch(
-    "https://monica-portfolio.microcms.io/api/v1/blog_tags",
-    {
-      headers: {
-        "X-MICROCMS-API-KEY": "2e6bdd36fdb841409adac94e6a71f24b8b1f",
-      },
-    }
-  );
-  const blogs_data = await res_blogs.json();
-  const blogs: Blogs[] = blogs_data.contents;
-  const tags_data = await res_tags.json();
-  const tags: Tags[] = tags_data.contents;
+  const blogs: Blogs[] = await getBlogs();
+  const tags: Tags[] = await getBlogsTags();
   return {
     props: {
       blogs,
@@ -42,10 +27,12 @@ const BlogsIndex = ({
   blogs,
   tags,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const router = useRouter();
   const [showMore, setShowMore] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isTagOpen, setIsTagOpen] = useState(false);
   var item_length = 0;
+  var filter_tag = router.query.tag;
   function getBlogs(blogs: Blogs[]): Blogs[] {
     var blogs_list: Blogs[] = [];
     blogs.map((blog: Blogs) => {
@@ -54,7 +41,15 @@ const BlogsIndex = ({
         blog.description.includes(searchText) ||
         blog.content.includes(searchText)
       ) {
-        blogs_list.push(blog);
+        if (!filter_tag) {
+          blogs_list.push(blog);
+        } else {
+          blog.tags.map((tag: Tags) => {
+            if (tag.slug === filter_tag) {
+              blogs_list.push(blog);
+            }
+          });
+        }
       }
     });
     item_length = blogs_list.length;
@@ -63,16 +58,16 @@ const BlogsIndex = ({
   return (
     <div>
       <HeadItem
-        title={"Blogs"}
+        title={"Blog"}
         description={
           "Webプログラミングをメインに活動している「Monica」の制作物や技術記事をまとめたポートフォリオです。"
         }
-        keyword={"monica,プログラマー,エンジニア,高校生,大学生,ポートフォリオ"}
+        keyword={"monica,プログラマー,大学生,ポートフォリオ"}
         image={"https://avatars.githubusercontent.com/u/80559385?v=4"}
       />
       <Header position={"blogs"} />
       <div className={styles.blogs}>
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper + " wrapper"}>
           <div className={styles.header}>
             <div className={styles.title}>Blogs</div>
             <div
@@ -89,12 +84,24 @@ const BlogsIndex = ({
               placeholder="Search"
               onChange={(e) => setSearchText(e.target.value)}
             />
-            <Link href={`/blogs/`}>
-              <a className={`${styles.tags_item} ${styles.now}`}>ALL</a>
+            <Link href={`/blog/`}>
+              <a
+                className={`${styles.tags_item} ${
+                  !filter_tag ? styles.now : ""
+                }`}
+              >
+                ALL
+              </a>
             </Link>
             {tags.map((tag: Tags, index: number) => (
-              <Link href={`/blogs/tags/${tag.slug}`} key={index}>
-                <a className={styles.tags_item}>{tag.name}</a>
+              <Link href={`/blog/?tag=${tag.slug}`} key={index}>
+                <a
+                  className={`${styles.tags_item} ${
+                    tag.slug === filter_tag ? styles.now : ""
+                  }`}
+                >
+                  {tag.name}
+                </a>
               </Link>
             ))}
           </div>
@@ -102,6 +109,12 @@ const BlogsIndex = ({
             {getBlogs(blogs).map((blog: Blogs, index: number) => (
               <BlogsItem blog={blog} key={index} />
             ))}
+          </div>
+          <div
+            className={styles.not_blogs}
+            style={item_length ? { display: "none" } : { display: "block" }}
+          >
+            Sorry, the blogs not found.
           </div>
           <div
             className={styles.more}

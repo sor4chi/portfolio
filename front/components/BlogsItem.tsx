@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import styles from "styles/BlogsItem.module.scss";
-import { Blogs } from "interface";
+import { Blogs } from "types";
 import Image from "next/image";
 import DateDisplay from "components/DateDisplay";
 
@@ -10,13 +10,14 @@ interface Props {
 }
 
 const BlogsItem = ({ blog }: Props): JSX.Element => {
+  const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "http://api:8000/";
   function getlink(blog: Blogs) {
     if (blog.qiita) {
       return blog.qiita;
     } else if (blog.zenn) {
       return blog.zenn;
     } else {
-      return `/blogs/${blog.id}`;
+      return `/blog/${blog.slug}`;
     }
   }
   function ExternalBlogLink(blog: Blogs) {
@@ -55,7 +56,7 @@ const BlogsItem = ({ blog }: Props): JSX.Element => {
           </div>
         </div>
         <Image
-          src={blog.thumbnail.url}
+          src={imageUrl + blog.thumbnail.url}
           layout="fill"
           objectFit="cover"
           alt={blog.title}

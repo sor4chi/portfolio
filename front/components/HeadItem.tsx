@@ -16,7 +16,7 @@ const HeadItem = ({
   image,
 }: Props): JSX.Element => {
   const router = useRouter();
-  const url = process.env.CurrentURL + router.pathname;
+  const url = process.env.NEXT_PUBLIC_BASE_URL + router.pathname;
   return (
     <Head>
       <title>{title + " | Monica's Portfolio"}</title>
@@ -37,6 +37,12 @@ const HeadItem = ({
       <link rel="canonical" href={url} />
       <link rel="shortcut icon" href={""} />
       <link rel="apple-touch-icon" href={""} />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css"
+        integrity="sha384-SfHjyzed8eCsTSa4t2GoMc4WnsCLa6cQpFqPRCaizz0FlQUOyafw/AyIUCQU/KuM"
+        crossOrigin="anonymous"
+      />
     </Head>
   );
 };

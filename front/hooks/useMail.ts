@@ -1,57 +1,56 @@
 import { useState } from "react";
+import { postContact } from "lib/api/contact";
+import { Contact } from "types";
 
 export const useMail = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
-  const [content, setContent] = useState("");
+  const [message, setMessage] = useState("");
 
-  type formValue = {
-    name: string;
-    email: string;
-    subject: string;
-    content: string;
-  };
-
-  var data: formValue = {
+  var data: Contact = {
     name: name,
     email: email,
     subject: subject,
-    content: content,
+    message: message,
   };
 
-  // return what data is blank in form
-  const isBlank = (data: formValue) => {
+  function isBlank() {
     if (
       data.name === "" ||
       data.email === "" ||
       data.subject === "" ||
-      data.content === ""
+      data.message === ""
     ) {
       return true;
     } else {
       return false;
     }
-  };
-
-  var data_json = JSON.stringify(data);
+  }
 
   const send = async () => {
-    if (isBlank(data)) {
+    if (isBlank()) {
       alert("全て必須項目です");
+    } else {
+      const res = await postContact(data);
+      if (res === "SUCCESS") {
+        alert("送信しました");
+        setName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+      } else {
+        alert("送信に失敗しました。時間を空けて再度送信してください。");
+      }
     }
-
-    // await fetch("/api/mail", {
-    //   method: "POST",
-    //   body: data_json,
-    // });
   };
 
   return {
     setName,
     setEmail,
     setSubject,
-    setContent,
+    setMessage,
     send,
+    isBlank,
   };
 };

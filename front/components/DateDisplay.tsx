@@ -1,8 +1,8 @@
-import { monthNames } from "interface";
+// import { monthNames } from "types";
 import * as React from "react";
 import styles from "styles/DateDisplay.module.scss";
 import Image from "next/image";
-import { workerData } from "worker_threads";
+import momemt from "moment";
 
 interface Props {
   datetime_str: string;
@@ -11,10 +11,10 @@ interface Props {
 const DayDisplay = ({ datetime_str }: Props): JSX.Element => {
   function getdate(datetime_str: string) {
     var datetime = new Date(datetime_str);
-    var y = datetime.getFullYear();
-    var m = monthNames[datetime.getMonth()];
-    var d = ("00" + datetime.getDate()).slice(-2);
-    return m + " " + d + " " + y;
+    // var y = datetime.getFullYear();
+    // var m = monthNames[datetime.getMonth()];
+    // var d = ("00" + datetime.getDate()).slice(-2);
+    return momemt(datetime_str).format("MMM DD YYYY");
   }
   return (
     <div className={styles.wrapper}>

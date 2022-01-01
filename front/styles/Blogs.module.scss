@@ -18,20 +18,27 @@
 }
 
 .blogs {
-  min-height: 70vh;
+  min-height: $minContentHeight;
+  background-color: $main-background-color;
 }
 .wrapper {
-  margin: 10vh auto 0 auto;
+  margin: 0 auto;
+
   max-width: 120rem;
+  @include mq(d_xl) {
+    max-width: 90rem;
+  }
+  @include mq(d_md) {
+    max-width: 50rem;
+  }
 }
 .title {
   color: $main-text-color;
   font-size: 7rem;
-  font-weight: 400;
   width: 22rem;
   text-align: center;
   margin: 0;
-  font-family: Roboto Mono;
+  font-weight: 400;
   letter-spacing: 0.5rem;
 }
 .list {
@@ -39,11 +46,19 @@
   flex-wrap: wrap;
   margin: 2rem 0;
 }
+.not_blogs {
+  width: 100%;
+  text-align: center;
+  font-size: 5rem;
+  color: $main-text-color;
+  font-weight: 300;
+}
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 4rem 4rem 0 4rem;
+  margin: 0;
+  padding: 0 2vw;
 }
 .selected {
   background-color: $accent-color;
@@ -64,34 +79,36 @@
   transition: 0.3s ease;
   align-items: center;
   justify-content: center;
-  &:hover {
-    transform: translateY(0.4rem);
-    transition: 0.3s ease;
+  @include mq(u_xl) {
+    &:hover {
+      transform: translateY(0.4rem);
+      transition: 0.3s ease;
+    }
   }
 }
 .search {
   &_btn {
     padding: 0.4rem 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     margin-left: 4rem;
-    background-color: $accent-color;
+    border: 0.3rem $accent-color solid;
     position: relative;
   }
   &_field {
     width: 100%;
     font-size: 2rem;
-    margin: 2rem 0;
-    border: none;
+    margin: 2rem 1rem;
+    border: 2px rgba(255, 255, 255, 0) solid;
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.25),
-      inset -2px -1px 4px rgba(255, 255, 255, 0.25);
     outline: none;
     padding: 1rem 2rem;
     color: $main-text-color;
-    font-family: "Roboto Mono";
     font-style: normal;
     font-weight: 100;
+    &:focus {
+      border: 2px $accent-color solid;
+    }
     &::placeholder {
       color: $sub-text-color;
     }
@@ -104,11 +121,12 @@
 }
 .tags {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 0;
   height: 0;
   overflow: hidden;
-  transition: 0.5s ease;
+  transition: 0.3s ease;
   animation-name: fadeOut;
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -121,16 +139,20 @@
     border-radius: 2rem;
     border: 0.2rem $accent-color solid;
     margin: 0 1rem 1rem 0;
+    &:nth-child(2) {
+      margin-left: 1rem;
+    }
+    transition: 0.3s ease;
   }
 }
 .open {
-  margin: 2rem 0;
   height: auto;
-  transition: 0.5s ease;
+  transition: 0.3s ease;
   animation-name: fadeIn;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 .now {
   background-color: $accent-color;
+  transition: 0.3s ease;
 }

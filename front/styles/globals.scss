@@ -5,6 +5,9 @@ html,
 body {
   accent-color: $accent-color;
   font-size: 62.5%; // 1rem = 10px
+//   @include mq(d_md) {
+//     font-size: 55%;
+//   }
   background-color: $main-background-color;
   padding: 0;
   margin: 0;
@@ -12,6 +15,15 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.wrapper {
+  padding: 5rem 2rem;
+}
+
+@include mq(d_md) {
+  .wrapper {
+    padding: $headerHeight 1rem !important;
+  }
+}
 a {
   color: inherit;
   text-decoration: none;

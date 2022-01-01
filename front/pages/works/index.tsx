@@ -8,47 +8,41 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "styles/Works.module.scss";
-import { Works, Tags, monthNames } from "interface";
+import { Works, Categories } from "types";
 import { InferGetStaticPropsType } from "next";
+import { getWorks, getWorksCategories } from "lib/api/works";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res_works = await fetch(
-    "https://monica-portfolio.microcms.io/api/v1/works",
-    {
-      headers: { "X-MICROCMS-API-KEY": "2e6bdd36fdb841409adac94e6a71f24b8b1f" },
-    }
-  );
-  const res_tags = await fetch(
-    "https://monica-portfolio.microcms.io/api/v1/tags",
-    {
-      headers: { "X-MICROCMS-API-KEY": "2e6bdd36fdb841409adac94e6a71f24b8b1f" },
-    }
-  );
-  const works_data = await res_works.json();
-  const works: Works[] = works_data.contents;
-  const tags_data = await res_tags.json();
-  const tags: Tags[] = tags_data.contents;
+  const works: Works[] = await getWorks();
+  const categories: Categories[] = await getWorksCategories();
   return {
     props: {
       works,
-      tags,
+      categories,
     },
   };
 };
 
 const WorksIndex = ({
   works,
-  tags,
+  categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
   const [showmore, setShowmore] = useState(false);
   var disp_works: Works[] = [];
-  function getWorks(works: Works[]): Works[] {
+  var item_length = 0;
+  var category_now = router.query.category || "";
+  function getSelectedWorks(works: Works[]): Works[] {
     var works_list: Works[] = [];
     var count = 0;
     disp_works = [];
     works.map((work: Works) => {
-      if (router.query.tag === work.tag.slug || !router.query.tag) {
+      if (
+        categories.find((category: Categories) => {
+          return category.id === work.works_category_id;
+        }).slug === category_now ||
+        !category_now
+      ) {
         if (count < 6) {
           works_list.push(work);
         }
@@ -58,6 +52,7 @@ const WorksIndex = ({
         }
       }
     });
+    item_length = works_list.length;
     return works_list;
   }
   return (
@@ -67,32 +62,41 @@ const WorksIndex = ({
         description={
           "Webプログラミングをメインに活動している「Monica」の制作物や技術記事をまとめたポートフォリオです。"
         }
-        keyword={"monica,プログラマー,エンジニア,高校生,大学生,ポートフォリオ"}
+        keyword={"monica,プログラマー,大学生,ポートフォリオ"}
         image={"https://avatars.githubusercontent.com/u/80559385?v=4"}
       />
       <Header position={"works"} />
+
       <div className={styles.works}>
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper + " wrapper"}>
           <div className={styles.header}>
             <Link href="">
               <a className={styles.title}>Works</a>
             </Link>
-            {[...tags].reverse().map((tag: Tags) => (
-              <Link href={`?tag=${tag.slug}`} key={tag.id}>
+            {[...categories].reverse().map((category: Categories) => (
+              <Link href={`?category=${category.slug}`} key={category.id}>
                 <a
-                  className={`${styles.tag} ${
-                    router.query.tag === tag.slug ? styles.selected : ""
+                  className={`${styles.category} ${
+                    router.query.category === category.slug
+                      ? styles.selected
+                      : ""
                   }`}
                 >
-                  {tag.name}
+                  {category.name}
                 </a>
               </Link>
             ))}
           </div>
           <div className={styles.list}>
-            {getWorks(works).map((work: Works, index: number) => (
-              <WorksItem work={work} key={index} />
+            {getSelectedWorks(works).map((work: Works, index: number) => (
+              <WorksItem work={work} categories={categories} key={index} />
             ))}
+          </div>
+          <div
+            className={styles.not_works}
+            style={item_length ? { display: "none" } : { display: "block" }}
+          >
+            Sorry, the works not found.
           </div>
           <div
             className={styles.more}

@@ -1,19 +1,72 @@
-@import 'variables';
+@import "variables";
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&family=Sulphur+Point:wght@300&display=swap");
 
 .content {
-  margin: 5rem 0;
-  p {
-    font-size: 2rem;
-    color: $main-text-color;
-  }
+  margin: 3rem 0;
+  color: $main-text-color;
+  font-size: 2rem;
   a {
     color: $accent-color;
     padding: 0 0.5rem;
   }
   img {
+    display: block;
     width: 80%;
-    margin: 2rem 10%;
-    border-radius: 1rem;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
     height: auto;
+    @include mq(d_md) {
+      width: 100%;
+    }
+  }
+  h2 {
+    margin-top: 2rem;
+    border-bottom: 0.3rem dashed $accent-color;
+    padding: 1rem;
+    font-size: 1.8em;
+  }
+  h3 {
+    margin: 2rem 1rem 0 1rem;
+    font-size: 1.3em;
+    border-left: 0.3rem solid $accent-color;
+    padding-left: 2rem;
+  }
+  code {
+    font-family: "Source Code Pro", monospace !important;
+    font-family: "Sulphur Point", sans-serif;
+  }
+  .shiki {
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    background-color: $sub-background-color !important;
+    overflow: scroll;
+    font-size: 1.8rem;
+  }
+  table {
+    margin: 2rem auto;
+    background-color: $sub-background-color !important;
+    border-radius: 1rem;
+    width: min-content;
+    display: block;
+    overflow-x: scroll;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    @include mq(d_md) {
+      width: 100%;
+    }
+  }
+  th {
+    color: $accent-color !important;
+    font-weight: 400;
+    font-size: 1.8rem;
+    padding: 1rem;
+  }
+  th,
+  td {
+    font-weight: 300;
+    padding: 2rem;
+    @include mq(d_md) {
+      padding: 2rem 1rem;
+    }
   }
 }
