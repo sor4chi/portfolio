@@ -5,7 +5,7 @@ import styles from "styles/SocialIcon.module.scss";
 const SocialIcon = (): JSX.Element => {
   return (
     <div className={styles.social}>
-      <Link href="https://github.com/monica-0218">
+      <Link href="https://github.com/sor4chi">
         <a>
           <svg
             width="35"
