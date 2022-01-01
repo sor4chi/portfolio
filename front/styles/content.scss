@@ -1,5 +1,4 @@
 @import "variables";
-@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&family=Sulphur+Point:wght@300&display=swap");
 
 .content {
   margin: 3rem 0;
@@ -33,7 +32,6 @@
   }
   code {
     font-family: "Source Code Pro", monospace !important;
-    font-family: "Sulphur Point", sans-serif;
   }
   .shiki {
     padding: 1rem 2rem;
