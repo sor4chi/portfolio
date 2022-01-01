@@ -130,6 +130,10 @@
     @include mq(d_lg) {
       top: 3vh;
     }
+    @include mq(d_md) {
+      font-size: 3rem;
+      top: 5vh;
+    }
     &:before {
       content: "";
       display: block;
@@ -260,7 +264,7 @@
     margin: auto;
     position: absolute;
     top: 10vh;
-    left: 8rem;
+    left: 10vw;
     right: 0;
     font-weight: 300;
     letter-spacing: 1rem;
@@ -503,7 +507,7 @@
     margin: auto;
     position: absolute;
     top: 10vh;
-    left: 2vw;
+    left: 10vw;
     right: 0;
     font-weight: 300;
     letter-spacing: 1rem;

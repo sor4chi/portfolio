@@ -25,7 +25,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
     margin-top: 2rem;
     position: relative;
@@ -39,6 +38,14 @@
 }
 .tags {
   display: flex;
+  @include mq(d_md) {
+    justify-content: center;
+    width: 100%;
+    &_item {
+      font-size: 1.5rem !important;
+      padding: 0.5rem 1rem !important;
+    }
+  }
   &_item {
     color: $main-text-color;
     background-color: $main-background-color;
@@ -48,5 +55,6 @@
     border-radius: 2rem;
     border: 0.2rem $accent-color solid;
     margin-right: 1rem;
+    margin-bottom: 1rem;
   }
 }

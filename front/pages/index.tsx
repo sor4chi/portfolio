@@ -65,19 +65,16 @@ const Home = ({
     );
   }
   var blog_item_num = 1;
-  var innerWidth = 1000;
   if (typeof window !== "undefined") {
     window.addEventListener("resize", () => {
-      innerWidth = window.innerWidth;
+      if (window.innerWidth <= 768) {
+        blog_item_num = 1;
+      } else if (window.innerWidth <= 1200) {
+        blog_item_num = 2;
+      } else {
+        blog_item_num = 3;
+      }
     });
-  }
-  const [windowWidth, setWindowWidth] = useState(innerWidth);
-  if (windowWidth <= 768) {
-    blog_item_num = 1;
-  } else if (windowWidth <= 1200) {
-    blog_item_num = 2;
-  } else {
-    blog_item_num = 3;
   }
   var blog_item: Blogs[] = [...blogs].reverse().slice(0, blog_item_num);
   return (
@@ -219,7 +216,7 @@ const Home = ({
       <section id="blog" className={`${styles.section} ${styles.blog}`}>
         <h2 className={styles.blog_title}>Blog</h2>
         <h3 className={styles.blog_title_sub}>
-          Newest Posts of{" "}
+          Newest Posts in{" "}
           <span className={styles.blog_title_sub_strong}>{blogs.length}</span>{" "}
           blogs
         </h3>
