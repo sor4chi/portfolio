@@ -177,10 +177,12 @@
     width: 35rem;
     height: 35rem;
     position: absolute;
+    top: 0;
     bottom: 0;
     right: 10vw;
     margin: auto;
     @include mq(d_lg) {
+      top: auto;
       right: 0;
       left: 0;
       width: 15rem;
