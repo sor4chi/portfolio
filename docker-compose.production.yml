@@ -36,7 +36,7 @@ services:
     tty: true
     volumes:
       - ./front:/app
-      - /app/node_modules
+      - ./front/node_modules:/app/node_modules
     ports:
       - 3000:3000
     command:  sh -c "yarn build && yarn start"
@@ -45,15 +45,27 @@ services:
     image: nginx:1.13
     ports:
       - "80:80"
+      - "443:443"
     env_file: ./.env
     build:
       context: .
       dockerfile: ./docker/nginx/dockerfile
-      target: dev_stage
+      target: prod_stage
     depends_on:
       - next
     environment:
       TZ: ${TZ}
+    volumes:
+      - /etc/nginx/conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/html:/var/www/html
+
+  certbot:
+    image: certbot/certbot:v1.7.0
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/html:/var/www/html
+    command: ["--version"]
 
 volumes:
   pgdata:

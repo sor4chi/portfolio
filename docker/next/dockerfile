@@ -1,12 +1,14 @@
-FROM node:15.0.1-alpine3.10
+FROM node:15.0.1
 
 ENV LANG=C.UTF-8 TZ=Asia/Tokyo
+ENV NPM_CONFIG_LOGLEVEL warn
 
 WORKDIR /app
 
-COPY ./front/package*.json ./
+COPY ./front/package.json ./front/yarn.lock ./
 
-RUN yarn install
+RUN yarn install --production --ignore-optional --ignore-scripts --pure-lockfile --non-interactive
+RUN yarn add sharp --ignore-scripts=false
 
 COPY ./front .
 
