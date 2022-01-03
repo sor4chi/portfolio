@@ -4,7 +4,7 @@ module Api
             before_action :set_works_cateogry, only: [:show, :update, :destroy]
 
             def index
-                works_categories = WorksCategory.all.order(created_at: :desc)
+                works_categories = WorksCategory.all.order(created_at: :asc)
                 works_categories.each do |works_cateogry|
                     works_cateogry.count = Work.where(works_category_id: works_cateogry.id).count
                 end
