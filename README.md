@@ -1,11 +1,15 @@
 # My Portfolio
+This is my portfolio
+[https://monica-dev.com](https://monica-dev.com)
 
 ## Composition
 
-- Docker
-- Postgresql
-- Next.js
-- Ruby on Rails
+- DockerCompose
+  - Postgresql
+  - Next.js
+  - Ruby on Rails
+  - CertBot(SSL - Let's Encrypt)
+  - Nginx
 
 ```
 // environment valiables of ./.env
