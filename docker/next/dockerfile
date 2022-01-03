@@ -1,4 +1,4 @@
-FROM node:15.0.1
+FROM node:15.0.1-alpine
 
 ENV LANG=C.UTF-8 TZ=Asia/Tokyo
 ENV NPM_CONFIG_LOGLEVEL warn
