@@ -4,7 +4,7 @@ module Api
             before_action :set_profile, only: [:show, :update, :destroy]
 
             def index
-                profiles = Profile.all
+                profiles = Profile.all.order(created_at: :asc)
                 render json: { status: 'SUCCESS', message: 'Loaded profiles', data: profiles }
             end
 

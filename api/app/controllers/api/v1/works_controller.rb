@@ -4,7 +4,7 @@ module Api
             before_action :set_work, only: [:show, :update, :destroy]
 
             def index
-                works = Work.order(created_at: :desc)
+                works = Work.all.order(created_at: :desc)
                 render json: { status: 'SUCCESS', message: 'Loaded works', data: works }
             end
 

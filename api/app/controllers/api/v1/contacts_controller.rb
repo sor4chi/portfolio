@@ -4,7 +4,7 @@ module Api
             before_action :set_contact, only: [:show, :update, :destroy]
 
             def index
-                contacts = Contact.all
+                contacts = Contact.all.order(created_at: :desc)
                 render json: { status: 'SUCCESS', message: 'Loaded contacts', data: contacts }
             end
 

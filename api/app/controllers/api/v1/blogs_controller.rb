@@ -4,7 +4,7 @@ module Api
             before_action :set_blog, only: [:show, :update, :destroy]
 
             def index
-                blogs = Blog.all
+                blogs = Blog.all.order(created_at: :desc)
                 render json: { status: 'SUCCESS', message: 'Loaded blogs', data: JSON.parse(blogs.to_json(include: [:tags])) }
             end
 

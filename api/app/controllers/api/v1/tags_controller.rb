@@ -4,7 +4,7 @@ module Api
             before_action :set_tag, only: [:show, :update, :destroy]
 
             def index
-                tags = Tag.all
+                tags = Tag.all.order(created_at: :desc)
                 render json: { status: 'SUCCESS', message: 'Loaded tags', data: tags }
             end
 
