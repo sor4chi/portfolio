@@ -74,7 +74,7 @@ const WorksIndex = ({
               <a className={styles.title}>Works</a>
             </Link>
             <div className={styles.category}>
-              {[...categories].reverse().map((category: Categories) => (
+              {categories.map((category: Categories) => (
                 <Link href={`?category=${category.slug}`} key={category.id}>
                   <a
                     className={`${styles.category_inner} ${
