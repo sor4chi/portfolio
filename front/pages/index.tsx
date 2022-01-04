@@ -64,19 +64,7 @@ const Home = ({
       </div>
     );
   }
-  var blog_item_num = 1;
-  if (typeof window !== "undefined") {
-    window.addEventListener("resize", () => {
-      if (window.innerWidth <= 768) {
-        blog_item_num = 1;
-      } else if (window.innerWidth <= 1200) {
-        blog_item_num = 2;
-      } else {
-        blog_item_num = 3;
-      }
-    });
-  }
-  var blog_item: Blogs[] = [...blogs].reverse().slice(0, blog_item_num);
+  var blog_item: Blogs[] = [...blogs].reverse().slice(0, 3);
   return (
     <div>
       <HeadItem

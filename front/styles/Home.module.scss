@@ -564,9 +564,15 @@
     max-width: 120rem;
     @include mq(d_xl) {
       max-width: 90rem;
+      a:nth-child(3) {
+          display: none;
+      }
     }
     @include mq(d_md) {
       max-width: 50rem;
+      a:nth-child(2),a:nth-child(3) {
+          display: none;
+      }
     }
     a {
       @include mq(u_xl) {
