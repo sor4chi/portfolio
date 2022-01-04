@@ -13,9 +13,8 @@
   color: $main-text-color;
   font-size: 7rem;
   font-weight: 400;
-  width: min-content;
-  margin: 0 4rem;
-
+  text-align: center;
+  width: 30rem;
   letter-spacing: 0.5rem;
 }
 .list {
@@ -30,14 +29,23 @@
   justify-content: space-between;
 }
 .category {
-  text-align: center;
-  width: min-content;
-  font-size: 2rem;
-  background-color: $main-background-color;
-  color: $sub-text-color;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  transition: 0.3s ease;
+  width: calc(120rem - 30rem - 4rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  &_inner {
+    text-align: center;
+    width: min-content;
+    font-size: 2rem;
+    background-color: $main-background-color;
+    color: $sub-text-color;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: 0.3s ease;
+    @include mq(d_md) {
+      width: calc(100% / 3);
+    }
+  }
 }
 .selected {
   background-color: $accent-color;

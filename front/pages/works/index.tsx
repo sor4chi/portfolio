@@ -73,19 +73,22 @@ const WorksIndex = ({
             <Link href="">
               <a className={styles.title}>Works</a>
             </Link>
-            {[...categories].reverse().map((category: Categories) => (
-              <Link href={`?category=${category.slug}`} key={category.id}>
-                <a
-                  className={`${styles.category} ${
-                    router.query.category === category.slug
-                      ? styles.selected
-                      : ""
-                  }`}
-                >
-                  {category.name}
-                </a>
-              </Link>
-            ))}
+            <div className={styles.category}>
+              {[...categories].reverse().map((category: Categories) => (
+                <Link href={`?category=${category.slug}`} key={category.id}>
+                  <a
+                    className={`${styles.category_inner} ${
+                      router.query.category === category.slug
+                        ? styles.selected
+                        : ""
+                    }`}
+                    dangerouslySetInnerHTML={{
+                      __html: category.name.replace(" ", "<br>"),
+                    }}
+                  ></a>
+                </Link>
+              ))}
+            </div>
           </div>
           <div className={styles.list}>
             {getSelectedWorks(works).map((work: Works, index: number) => (
