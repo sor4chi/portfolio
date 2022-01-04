@@ -2,7 +2,6 @@ import { Profile } from "types";
 
 const API_URL =
   process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost/api/v1";
-console.log("API_URL_IN_PROFILES:", API_URL);
 export async function getProfiles(): Promise<Profile[]> {
   const res = await fetch(API_URL + "/profiles", {
     method: "GET",

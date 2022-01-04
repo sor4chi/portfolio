@@ -2,7 +2,6 @@ import { Blogs, Tags } from "types";
 
 const API_URL =
   process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost/api/v1";
-console.log("API_URL_IN_BLOG:", API_URL);
 export async function getBlogs(): Promise<Blogs[]> {
   const res = await fetch(API_URL + "/blogs", {
     method: "GET",

@@ -2,8 +2,6 @@ import { Works, Categories } from "types";
 
 const API_URL =
   process.env.NEXT_PUBLIC_BASE_API_URL || "http://localhost/api/v1";
-console.log("API_URL_IN_WORKS:", API_URL);
-
 export async function getWorks(): Promise<Works[]> {
   const res = await fetch(API_URL + "/works", {
     method: "GET",

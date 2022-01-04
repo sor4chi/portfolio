@@ -16,6 +16,7 @@ const WorksItem = ({ work, categories }: Props): JSX.Element => {
   });
   const category_name = this_category ? this_category.name : "";
   const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "http://api:8000/";
+  console.log(imageUrl + work.thumbnail.url);
   return (
     <Link href={`/works/${work.slug}`}>
       <a className={styles.work}>
