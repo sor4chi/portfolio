@@ -36,7 +36,15 @@
     padding-left: 2rem;
   }
   code {
+    padding: 0 1rem;
+    margin: 0 .5rem;
+    border-radius: .5rem;
+    background-color: $sub-background-color !important;   
     font-family: "Source Code Pro", monospace !important;
+  }
+  pre > code {
+    padding: 0;
+    margin: 0;
   }
   .shiki {
     padding: 1rem 2rem;
@@ -72,4 +80,8 @@
       padding: 2rem 1rem;
     }
   }
+//   span.katex-html {
+//     display: flex;
+//     overflow: scroll;
+//   }
 }

@@ -224,6 +224,9 @@
     height: 30rem;
     justify-content: center;
     padding: 0 2rem;
+    a {
+        color: $accent-color;
+    }
     &_show {
       display: flex !important;
       align-items: center;
