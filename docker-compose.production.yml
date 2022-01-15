@@ -36,7 +36,7 @@ services:
     tty: true
     volumes:
       - ./front:/app
-      - ./front/node_modules:/app/node_modules
+      - /app/node_modules
     ports:
       - 3000:3000
     command:  sh -c "yarn build && yarn start"
