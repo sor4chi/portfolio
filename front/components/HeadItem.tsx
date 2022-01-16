@@ -57,6 +57,12 @@ const HeadItem = ({
         href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
         rel="stylesheet"
       />
+      <script
+        id="gad-tag"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7744444280888335"
+        crossOrigin="anonymous"
+      ></script>
     </Head>
   );
 };
