@@ -298,8 +298,12 @@
       flex-wrap: nowrap;
       margin-top: 30vh;
       margin-bottom: 15vh;
+      overflow-x: scroll;
     }
-    overflow-y: scroll;
+    overflow: hidden;
+    &::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+        display:none;
+    }
   }
   &_item {
     width: 35rem;
