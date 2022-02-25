@@ -4,7 +4,7 @@
   top: 0;
   z-index: 100;
   background: $main-background-color-light;
-  width: 100vw;
+  width: 100%;
   user-select: none;
   height: 7rem;
   @include mq(d_md) {
