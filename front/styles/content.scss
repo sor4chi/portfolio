@@ -50,8 +50,11 @@
     padding: 1rem 2rem;
     border-radius: 0.5rem;
     background-color: $sub-background-color !important;
-    overflow: scroll;
+    overflow-x: scroll;
     font-size: 1.8rem;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   table {
     margin: 2rem auto;
